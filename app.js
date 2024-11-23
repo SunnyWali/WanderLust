@@ -3,6 +3,8 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const Listing = require("../WanderLust/models/listing");
+const methodOverride=require("method-override");
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
@@ -40,9 +42,38 @@ app.get("/listing", async (req, res) => {
     res.render("listing/index", { alllisting });
 });
 
+//New Route
+app.get("/listing/new",(req,res)=>
+{
+    res.render("listing/new");
+});
+
 //Show Route
 app.get("/listing/:id", async (req, res) => {
  let{id}=req.params;
  let list=await Listing.findById(id);
  res.render("listing/show",{list});
+});
+
+//Create Route
+app.post("/listing",async(req,res)=>
+{
+    const newListing=new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect("/listing");
+});
+
+//Edit Route
+app.get("/listing/:id/edit",async(req,res)=>
+{
+    let{id}=req.params;
+    let list=await Listing.findById(id);
+    res.render("listing/edit",{list});
+});
+
+//Update Route
+app.put("/listing/:id",async(req,res)=>{
+    let{id}=req.params;
+    await Listing.findByIdAndUpdate(id, {...req.body.listing});
+    res.redirect(`/listing/${id}`);
 });
