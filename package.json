@@ -1,0 +1,24 @@
+{
+  "name": "wanderlust",
+  "version": "1.0.0",
+  "description": "This is the project where i am creating a website which allows travellers to book hotels and rooms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SunnyWali/WanderLust.git"
+  },
+  "author": "SunnyWali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SunnyWali/WanderLust/issues"
+  },
+  "homepage": "https://github.com/SunnyWali/WanderLust#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.2"
+  }
+}
