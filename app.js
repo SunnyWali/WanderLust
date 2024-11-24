@@ -10,6 +10,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.engine("ejs",ejsMate);
+app.use(express.static(path.join(__dirname,"public")));
 const mongoUrl = "mongodb://127.0.0.1:27017/WanderLust";
 app.listen(8080, (req, res) => {
     console.log("Server is working on the port no 8080");
@@ -37,6 +38,11 @@ main().then(() => {
 //     await listing.save().then(()=>console.log("saved"));
 //     res.send("success");
 // })
+
+//Home Route
+app.get("/",(req,res)=>{
+    res.send("Hi i am root");
+});
 
 //Index Route 
 app.get("/listing", async (req, res) => {
