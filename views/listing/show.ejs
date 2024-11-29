@@ -4,7 +4,8 @@
     <ul>
         <li><%=list.title%></li>
         <li><%=list.description%></li>
-        <li><%=list.price%></li>
+        <!-- printing price indian version -->
+        <li>&#8377; <%=list.price.toLocaleString("en-IN")%></li> 
         <li><%=list.location%></li>
         <li><%=list.country%></li>
     </ul>
