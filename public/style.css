@@ -1,8 +1,17 @@
-body {
+html, body {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
   font-family: "Plus Jakarta Sans", sans-serif !important;
   font-optical-sizing: auto !important;
   font-weight: 300 to 600!important;
   font-style: normal !important;
+
+}
+
+.container
+{
+  flex: 1 !important;
 }
 .navbar {
   height: 5rem;
@@ -24,7 +33,7 @@ body {
   color: #222222;
 }
 
-.f-info-links a hover{
+.f-info-links a:hover{
   text-decoration: underline;
 }
 
@@ -84,4 +93,10 @@ align-items: space-evenly;
 .card-img-overlay:hover{
 opacity:0.2;
 background-color: white;
+}
+
+/* button */
+.add-btn{
+  background-color: #fe424d !important;
+  border: none !important;
 }
