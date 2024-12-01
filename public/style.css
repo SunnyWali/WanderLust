@@ -1,4 +1,4 @@
-html, body {
+ body {
   display: flex !important;
   flex-direction: column !important;
   min-height: 100vh !important;
@@ -13,6 +13,7 @@ html, body {
 {
   flex: 1 !important;
 }
+
 .navbar {
   height: 5rem;
   background-color: white;
@@ -58,6 +59,7 @@ display: flex;
 flex-wrap: wrap;
 justify-content: center;
 align-items: space-evenly;
+align-items: center;
 }
 
 /* Cards */
@@ -95,8 +97,29 @@ opacity:0.2;
 background-color: white;
 }
 
-/* button */
+/* New page */
 .add-btn{
   background-color: #fe424d !important;
   border: none !important;
+}
+
+/* Edit page */
+.edit-btn{
+  background-color: #fe424d !important;
+  border: none !important;
+}
+
+/* show page */
+.show-img
+{
+  height:30vh;
+}
+
+.btns{
+  display:flex;
+}
+
+.show-card{
+  padding-left: 0;
+  padding-right: 0;
 }
