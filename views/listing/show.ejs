@@ -5,7 +5,8 @@
     </div>
   <div class="card col-6 offset-3 show-card">
     <img
-      src="<%=list.image.url%>"
+      src="<%= list.image.url || list.image %>"
+      <%=console.log(list.image.url);%>
       class="card-img-top show-img"
       alt="listing_img"
     />
