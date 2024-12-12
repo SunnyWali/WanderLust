@@ -4,6 +4,7 @@ class ExpressError extends Error{
         super();
         this.status=status;
         this.message=message;
+        
     }
 }
 
