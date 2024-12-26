@@ -8,6 +8,7 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema } = require("./schema.js");
+const Review=require("./models/review.js");
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -106,7 +107,17 @@ app.delete("/listing/:id", wrapAsync(async (req, res) => {
     res.redirect("/listing");
 }));
 
-
+//Reviews (Post)
+app.post("/listing/:id/reviews",async(req,res)=>{
+    let{id}=req.params;
+    let list=await Listing.findById(id);
+    let newReview=await new Review(req.body.review);
+    list.review.push(newReview);
+    await list.save();
+    await newReview.save();
+    res.send("Sucess");
+    console.log("Sucess");
+});
 //Error handling middleware for all the pages which do not exists
 app.all("*", (req, res, next) => {
     next(new ExpressError(404, "Page Not Found"));
