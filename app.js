@@ -85,7 +85,7 @@ app.get("/listing/new", (req, res) => {
 //Show Route
 app.get("/listing/:id",wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let list = await Listing.findById(id);
+    let list = await Listing.findById(id).populate("review");
     //  console.log(list);
     res.render("listing/show", { list });
 }));
@@ -100,7 +100,7 @@ app.post("/listing",validateListing, wrapAsync(async (req, res) => {
 //Edit Route
 app.get("/listing/:id/edit", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    console.log(id);
+    // console.log(id);
     let list = await Listing.findById(id);
     res.render("listing/edit", { list });
 }));
@@ -117,7 +117,7 @@ app.delete("/listing/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     // console.log(id);
     let deletedItem = await Listing.findByIdAndDelete(id);
-    console.log(deletedItem);
+    // console.log(deletedItem);
     res.redirect("/listing");
 }));
 
@@ -129,8 +129,8 @@ app.post("/listing/:id/reviews",validateReviews,wrapAsync(async(req,res)=>{
     list.review.push(newReview);
     await list.save();
     await newReview.save();
-    res.send("Sucess");
-    console.log("Sucess");
+    res.redirect(`/listing/${list._id}`);
+    // console.log("Sucess");
 }));
 //Error handling middleware for all the pages which do not exists
 app.all("*", (req, res, next) => {
