@@ -22,7 +22,7 @@
         location:String,
         country:String,
         review:[{
-          types:mongoose.Schema.Types.ObjectId,
+          type:mongoose.Schema.Types.ObjectId,
           ref:"Review",
         }]
     });
