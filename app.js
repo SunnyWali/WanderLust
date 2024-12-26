@@ -9,6 +9,7 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema } = require("./schema.js");
 const Review=require("./models/review.js");
+const {reviewSchema}=require("./schema.js");
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -41,7 +42,7 @@ main().then(() => {
 //     res.send("success");
 // })
 
-//defining function for Schema Validation
+//defining function for ListingSchema Validation
 const validateListing = (req, res, next) => {
     let { error } = listingSchema.validate(req.body);
     if (error) {
@@ -49,6 +50,19 @@ const validateListing = (req, res, next) => {
         throw new ExpressError(400, errMsg);
     }
     else {
+        next();
+    }
+}
+
+//defining function for reviewSchema validation
+const validateReviews=(req,res,next)=>{
+    let{error}=reviewSchema.validate(req.body);
+    if(error)
+    {
+        let errMsg=error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400, errMsg); 
+    }
+    else{
         next();
     }
 }
@@ -108,7 +122,7 @@ app.delete("/listing/:id", wrapAsync(async (req, res) => {
 }));
 
 //Reviews (Post)
-app.post("/listing/:id/reviews",async(req,res)=>{
+app.post("/listing/:id/reviews",validateReviews,wrapAsync(async(req,res)=>{
     let{id}=req.params;
     let list=await Listing.findById(id);
     let newReview=await new Review(req.body.review);
@@ -117,7 +131,7 @@ app.post("/listing/:id/reviews",async(req,res)=>{
     await newReview.save();
     res.send("Sucess");
     console.log("Sucess");
-});
+}));
 //Error handling middleware for all the pages which do not exists
 app.all("*", (req, res, next) => {
     next(new ExpressError(404, "Page Not Found"));
