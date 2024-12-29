@@ -6,7 +6,6 @@
   <div class="card col-6 offset-3 show-card listing-card">
     <img
       src="<%= list.image.url || list.image %>"
-      <%=console.log(list.image.url);%>
       class="card-img-top show-img"
       alt="listing_img"
     />
@@ -52,7 +51,7 @@
     <p class="card-text"><%=review.comment%></p>
     <p class="card-text"><%=review.rating%> stars </p>
     </div>
-    <form class="mb-3" method="Post" action="/listing/<%=list._id%>/reviews/<%=review._id%>">
+    <form class="mb-3" method="Post" action="/listing/<%=list._id%>/reviews/<%=review._id%>?_method=Delete">
       <button class="btn btn-sm btn-dark">Delete</button>
       </form>
   </div>

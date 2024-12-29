@@ -86,7 +86,7 @@ app.get("/listing/new", (req, res) => {
 app.get("/listing/:id",wrapAsync(async (req, res) => {
     let { id } = req.params;
     let list = await Listing.findById(id).populate("review");
-    //  console.log(list);
+     console.log(list);
     res.render("listing/show", { list });
 }));
 
@@ -121,7 +121,7 @@ app.delete("/listing/:id", wrapAsync(async (req, res) => {
     res.redirect("/listing");
 }));
 
-//Review Route
+//Post Review Route
 app.post("/listing/:id/reviews",validateReviews,wrapAsync(async(req,res)=>{
     let{id}=req.params;
     let list=await Listing.findById(id);
@@ -131,6 +131,17 @@ app.post("/listing/:id/reviews",validateReviews,wrapAsync(async(req,res)=>{
     await newReview.save();
     res.redirect(`/listing/${list._id}`);
     // console.log("Sucess");
+}));
+
+//Delete Review Route
+app.delete("/listing/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
+    let{id,reviewId}=req.params;
+    let list=await Listing.findById(id);
+    console.log(list);
+
+    // await Listing.findByIdAndUpdate(id,{$pull:{review:reviewId}});
+    // await Listing.findByIdAndDelete(id);
+    // res.redirect(`/listing/${id}`);
 }));
 //Error handling middleware for all the pages which do not exists
 app.all("*", (req, res, next) => {
