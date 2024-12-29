@@ -121,7 +121,7 @@ app.delete("/listing/:id", wrapAsync(async (req, res) => {
     res.redirect("/listing");
 }));
 
-//Reviews (Post)
+//Review Route
 app.post("/listing/:id/reviews",validateReviews,wrapAsync(async(req,res)=>{
     let{id}=req.params;
     let list=await Listing.findById(id);
