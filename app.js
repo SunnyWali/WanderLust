@@ -10,6 +10,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema } = require("./schema.js");
 const Review=require("./models/review.js");
 const {reviewSchema}=require("./schema.js");
+const review = require("./models/review.js");
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -136,9 +137,9 @@ app.post("/listing/:id/reviews",validateReviews,wrapAsync(async(req,res)=>{
 //Delete Review Route
 app.delete("/listing/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
     let{id,reviewId}=req.params;
-    let list=await Listing.findById(id);
-    console.log(list);
-
+    await Listing.findByIdAndUpdate(id, {$pull:{review:reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/listing/${id}`);
     // await Listing.findByIdAndUpdate(id,{$pull:{review:reviewId}});
     // await Listing.findByIdAndDelete(id);
     // res.redirect(`/listing/${id}`);
@@ -151,7 +152,7 @@ app.all("*", (req, res, next) => {
 //error  handling middleware
 app.use((err, req, res, next) => {
     let { status = 500, message = "Error Occured" } = err;
-    res.status(status).render("error", { message });
+    res.status(status).render("error", {message});
 });
 
 app.listen(8080, (req, res) => {
