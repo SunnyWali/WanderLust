@@ -11,7 +11,7 @@ main().then(()=>
 {
     console.log("Connected successfully");
 })
-.catch(()=>
+.catch(()=> 
 {
     console.log("failed to connect with the database");
 });
