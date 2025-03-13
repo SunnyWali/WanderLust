@@ -87,13 +87,13 @@ app.get("/listing/new", (req, res) => {
 app.get("/listing/:id",wrapAsync(async (req, res) => {
     let { id } = req.params;
     let list = await Listing.findById(id).populate("review");
-     console.log(list);
+    //  console.log(list);
     res.render("listing/show", { list });
 }));
 
 //Create Route
-app.post("/listing",validateListing, wrapAsync(async (req, res) => {
-    const newListing = new Listing(req.body.listing);
+app.post("/listing",validateListing,wrapAsync(async(req,res)=>{
+    const newListing=new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listing");
 }));
