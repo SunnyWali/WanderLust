@@ -51,7 +51,7 @@ const validateListing = (req, res, next) => {
         throw new ExpressError(400, errMsg);
     }
     else {
-        next();
+        next(); 
     }
 }
 
@@ -157,5 +157,4 @@ app.use((err, req, res, next) => {
 
 app.listen(8080, (req, res) => {
     console.log("Server is working on the port no 8080");
-});
-
+}); 
